@@ -30,11 +30,10 @@ public class ArcadeApp extends Application {
 		
 		
 		Scene breakoutScene = BreakoutScene.createBreakoutScene(stage, mainScene);
-		Scene minesweeperScene = MinesweeperScene.createMinesweeperScene(stage, mainScene);
 		
 		
 		Button breakoutButton = new Button();
-		breakoutButton.setText("Start a new game of Tetris");
+		breakoutButton.setText("Start a new game of Breakout");
 		breakoutButton.setOnAction(e -> {			
 			stage.setScene(breakoutScene);
 			stage.sizeToScene();
@@ -43,7 +42,7 @@ public class ArcadeApp extends Application {
 		Button minesweeperButton = new Button();
 		minesweeperButton.setText("Start a new game of Minesweeper");
 		minesweeperButton.setOnAction(e -> {
-			stage.setScene(minesweeperScene);
+			stage.setScene(MinesweeperCell.createMinesweeperScene(stage, mainScene));
 			stage.sizeToScene();
 		});
 		
