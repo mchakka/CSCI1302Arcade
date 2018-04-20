@@ -30,14 +30,14 @@ public class ArcadeApp extends Application {
 		
 		
 		
-		Scene tetrisScene = TetrisScene.createTetrisScene(stage, mainScene);
+		Scene breakoutScene = BreakoutScene.createBreakoutScene(stage, mainScene);
 		Scene minesweeperScene = MinesweeperScene.createMinesweeperScene(stage, mainScene);
 		
 		
-		Button tetrisButton = new Button();
-		tetrisButton.setText("Start a new game of Tetris");
-		tetrisButton.setOnAction(e -> {			
-			stage.setScene(tetrisScene);
+		Button breakoutButton = new Button();
+		breakoutButton.setText("Start a new game of Tetris");
+		breakoutButton.setOnAction(e -> {			
+			stage.setScene(breakoutScene);
 			stage.sizeToScene();
 		});
 		
@@ -49,7 +49,7 @@ public class ArcadeApp extends Application {
 		});
 		
 		
-		gameSelection.getChildren().addAll(tetrisButton, minesweeperButton);
+		gameSelection.getChildren().addAll(breakoutButton, minesweeperButton);
 		
 		gameSelectionGroup.getChildren().add(gameSelection);
 

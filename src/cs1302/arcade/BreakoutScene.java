@@ -6,12 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class TetrisScene {
+public class BreakoutScene {
 	
 	
 	
 	
-	public static Scene createTetrisScene(Stage stage, Scene mainScene) {
+	public static Scene createBreakoutScene(Stage stage, Scene mainScene) {
 		BorderPane bp = new BorderPane();
 		bp.setPadding(new Insets(40));
 				
@@ -25,10 +25,10 @@ public class TetrisScene {
 		
 		bp.setTop(backButton);
 		
-		Scene tetrisScene = new Scene(bp);
+		Scene breakoutScene = new Scene(bp);
 		
 		
-		return tetrisScene;
+		return breakoutScene;
 	}
 
 }
