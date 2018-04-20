@@ -8,7 +8,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -68,6 +67,8 @@ public class ArcadeApp extends Application {
 		// https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html#requestFocus--
 		gameSelectionGroup.requestFocus();
 
+		
+		
 	} // start
 
 	public static void main(String[] args) {
