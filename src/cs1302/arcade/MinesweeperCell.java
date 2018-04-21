@@ -16,12 +16,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 public class MinesweeperCell {
 
-	static final int DIFFICULTY = 2; // Percent of the board to be filled with mines
+	static final int DIFFICULTY = 20; // Percent of the board to be filled with mines
 
 	static MinesweeperCell[][] buttons = new MinesweeperCell[16][16];
 	static GridPane grid = new GridPane();
