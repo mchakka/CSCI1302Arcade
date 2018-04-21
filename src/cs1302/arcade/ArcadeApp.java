@@ -53,6 +53,9 @@ public class ArcadeApp extends Application {
 
 		
 		
+		HighscoreTable.getScores();
+		
+		
 		
 		stage.setTitle("cs1302-arcade!");
 		stage.setMinHeight(200);
