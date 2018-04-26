@@ -8,6 +8,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -18,14 +22,36 @@ public class ArcadeApp extends Application {
 	@Override
 	public void start(Stage stage) {
 
-		Group gameSelectionGroup = new Group();
+		BorderPane bp = new BorderPane();
 
 
 		VBox gameSelection = new VBox(40);
 		gameSelection.setPadding(new Insets(40));
 		
 		
-		Scene mainScene = new Scene(gameSelectionGroup);		
+		
+		MenuBar menuBar = new MenuBar();
+		// Create File menu
+		Menu menu = new Menu("Options");
+
+		//Create exit menu item
+		MenuItem menuItem = new MenuItem("High Scores");
+		
+		//Set on action event handler
+		menuItem.setOnAction(e -> HighscoreTable.displayHighscoreTable());
+			
+		//Add menu item to menu
+		menu.getItems().add(menuItem);		
+
+		menuBar.getMenus().add(menu);
+			
+		bp.setTop(menuBar);
+				
+				
+				
+		
+		
+		Scene mainScene = new Scene(bp);		
 		
 		
 		
@@ -49,11 +75,13 @@ public class ArcadeApp extends Application {
 		
 		gameSelection.getChildren().addAll(breakoutButton, minesweeperButton);
 		
-		gameSelectionGroup.getChildren().add(gameSelection);
+		bp.setCenter(gameSelection);
 
 		
 		
 		HighscoreTable.getScores();
+			
+		
 		
 		
 		
@@ -67,7 +95,7 @@ public class ArcadeApp extends Application {
 		// the group must request input focus to receive key events
 		// @see
 		// https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html#requestFocus--
-		gameSelectionGroup.requestFocus();
+		bp.requestFocus();
 
 		
 		
