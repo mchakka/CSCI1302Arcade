@@ -83,6 +83,8 @@ public class BreakoutScene {
 	{
 		ready = false;
 		return ready;
+		// cool
+		
 	}
 	
 }
