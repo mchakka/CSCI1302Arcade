@@ -1,6 +1,7 @@
 package cs1302.arcade;
 
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -17,7 +18,7 @@ import javafx.stage.Stage;
 public class BreakoutScene {
 
 	
-	
+	static boolean ready = true;
 	
 	public static Scene createBreakoutScene(Stage stage, Scene mainScene) {
 		Group group = new Group();           // main container
@@ -32,9 +33,6 @@ public class BreakoutScene {
 		
 		GridPane gPane = new GridPane();
 		
-		
-		
-		
 		Rectangle rectangle = new Rectangle();
 		rectangle.setX(250);
 		rectangle.setY(580);
@@ -45,23 +43,27 @@ public class BreakoutScene {
 		ball.setCenterY(570);
 		ball.setRadius(10);
 		group.getChildren().add(ball); 
-		boolean ready = false;
+		
 		
 		group.setOnKeyPressed(event -> {
 			System.out.println(event);
+			
 			if (event.getCode() == KeyCode.LEFT && rectangle.getX() >= 10)
 				{
 					rectangle.setX(rectangle.getX() - 10.0);
-					ball.setCenterX(ball.getCenterX() - 10.0);
+					if (ready)
+						ball.setCenterX(ball.getCenterX() - 10.0);
 				}
 			if (event.getCode() == KeyCode.RIGHT && rectangle.getX() <= 490)
 				{
 					rectangle.setX(rectangle.getX() + 10.0);
-					ball.setCenterX(ball.getCenterX() + 10.0);
+					if (ready)
+						ball.setCenterX(ball.getCenterX() + 10.0);
 				}
-			if (event.getCode() == KeyCode.RIGHT)
+			if (event.getCode() == KeyCode.SPACE)
 				{
-					//hh
+					ready = false;
+					//ready = true;
 				}
 		    });
 		
@@ -76,4 +78,11 @@ public class BreakoutScene {
 		group.requestFocus();
 		return scene;
 	}
+	
+	public boolean moved()
+	{
+		ready = false;
+		return ready;
+	}
+	
 }
