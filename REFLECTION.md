@@ -12,6 +12,7 @@
 3. **PROB:** Had trouble committing and pulling repository from github,
       but we did some research and learned how to use github
 
+<<<<<<< HEAD
 ## THURS 2018-04-27 @ 11:55 PM EST
 
 1. **DONE:** 
@@ -20,3 +21,13 @@
 
 3. **PROB:** 
 
+=======
+
+## FRI 2018-04-27 @ 11:55 PM EST
+
+1. **DONE:** Finished Minesweeper gameplay and functionality. Added high score table.
+
+2. **TODO:** Finish minesweeper toolbar. Improve game selection graphics
+
+3. **PROB:** 
+>>>>>>> branch 'master' of https://github.com/adeeb897/cs1302-arcade
