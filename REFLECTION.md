@@ -12,22 +12,11 @@
 3. **PROB:** Had trouble committing and pulling repository from github,
       but we did some research and learned how to use github
 
-<<<<<<< HEAD
-## THURS 2018-04-27 @ 11:55 PM EST
-
-1. **DONE:** 
-
-2. **TODO:** 
-
-3. **PROB:** 
-
-=======
-
 ## FRI 2018-04-27 @ 11:55 PM EST
 
-1. **DONE:** Finished Minesweeper gameplay and functionality. Added high score table.
+1. **DONE:** Finished Minesweeper gameplay and functionality. Added high score table. Added Spacebar functionality to release the ball when pressed
 
-2. **TODO:** Finish minesweeper toolbar. Improve game selection graphics
+2. **TODO:** Finish minesweeper toolbar. Improve game selection graphics. Create bricks, make ball move
 
-3. **PROB:** 
+3. **PROB:** Figuring out how to fix final/effectivetly final errors in anonymouus classes and lambdas
 >>>>>>> branch 'master' of https://github.com/adeeb897/cs1302-arcade
