@@ -63,7 +63,7 @@ public class BreakoutScene {
 			if (event.getCode() == KeyCode.SPACE)
 				{
 					ready = false;
-					//ready = true;
+					//ready = true; gfufu
 				}
 		    });
 		
