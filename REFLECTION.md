@@ -12,3 +12,11 @@
 3. **PROB:** Had trouble committing and pulling repository from github,
       but we did some research and learned how to use github
 
+## THURS 2018-04-27 @ 11:55 PM EST
+
+1. **DONE:** 
+
+2. **TODO:** 
+
+3. **PROB:** 
+
