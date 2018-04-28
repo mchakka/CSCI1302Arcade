@@ -19,4 +19,3 @@
 2. **TODO:** Finish minesweeper toolbar. Improve game selection graphics. Create bricks, make ball move
 
 3. **PROB:** Figuring out how to fix final/effectivetly final errors in anonymouus classes and lambdas
->>>>>>> branch 'master' of https://github.com/adeeb897/cs1302-arcade
