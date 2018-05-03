@@ -33,6 +33,8 @@ import javafx.event.EventHandler;
  */
 public class BreakoutScene {
 
+	
+	//declaring and initializing variables
 	static Circle ball = new Circle();
 	static boolean ready = true;
 	static double dx = 10; //Step on x or velocity
@@ -51,6 +53,8 @@ public class BreakoutScene {
 	
 	
 	public static Scene createBreakoutScene(Stage stage, Scene mainScene) {
+		
+		//making the loading screen
 		group.getChildren().clear();
 		Scene scene = new Scene(group, 600, 600);
 		
@@ -75,7 +79,7 @@ public class BreakoutScene {
 		loadingStage.sizeToScene();
 		loadingStage.setResizable(false);
 	
-		
+		//buttons for difficulty level
 		easyButton.setOnAction( e -> {
 			dx =10;
 			dy =4;
@@ -90,6 +94,7 @@ public class BreakoutScene {
 			loadingStage.close();
 		});
 		
+		//button to go back to the main scene
 		 backButton.setText("Back");
 			backButton.setOnAction(e -> {
 				timeline.pause();
@@ -103,11 +108,13 @@ public class BreakoutScene {
 			});
 			
 			Stage winStage = new Stage();
+			
+			//Event handler that accounts for ball movement and collisions with bricks
 			EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {    
 	    		 //Step on
 	    		public void handle(ActionEvent event) {
 	    			
-	    			if (!ready) {//move the ball
+	    			if (!ready) {
 	            	ball.setCenterX(ball.getCenterX() + dx);
 	            	ball.setCenterY(ball.getCenterY() + dy);
 
@@ -116,52 +123,48 @@ public class BreakoutScene {
 	                int leftBound = 0;
 	                Bounds paddleEnds = rectangle.getBoundsInParent();
 	     
+	                //Collisions
 	                for(int i =0; i < bricks.size(); i++)
 	                {
 	                	if (ball.getBoundsInParent().intersects(bricks.get(i).getBoundsInParent()))
 	                	{
 	                		
-	                		
-	                	
-	                	if(ball.getCenterY()  <= bricks.get(i).getY()  - (20/2))
-	                	{
-	                		dy = -dy;
-	                		
-	                	}
-	                		  //Hit was from below the brick
-	                		if(ball.getCenterY() >= bricks.get(i).getY()  + (20/2))
-	                		{
-	                			dy = -dy;
-	                		
-	                		}
-	                		  //Hit was from above the brick
-	                		if(ball.getCenterX() < bricks.get(i).getX())
-	                		{
-	                			dx = -dx;
-	                			
-	                		}
-	                		  //Hit was on left
-	                		if(ball.getCenterX() > bricks.get(i).getX())
-	                		{
-	                			dx = -dx;
-	                			
-	                		}
-	                		
-	                		
-	                		bricks.get(i).setFill(Color.WHITE);
-	                		bricks.get(i).setStroke(Color.WHITE);
-	                		bricks.remove(i);
-	        
-	                		int newScore = counter++;
-	                		
-	                		newone.setText("Score: " + (newScore + 1));
-	                		
-	                		break;
+		                	if(ball.getCenterY()  <= bricks.get(i).getY()  - (20/2))
+		                	{
+		                		dy = -dy;	                		
+		                	}
+		                		  
+		                	if(ball.getCenterY() >= bricks.get(i).getY()  + (20/2))
+		                	{
+		                		dy = -dy;	        	
+		                	}
+		                		  
+		                	if(ball.getCenterX() < bricks.get(i).getX())
+		                	{
+		                		dx = -dx;	                			
+		                	}
+		                		
+		                	if(ball.getCenterX() > bricks.get(i).getX())
+		                	{
+		                		dx = -dx;	                		
+		                	}
+		                	
+		                		
+		                		bricks.get(i).setFill(Color.WHITE);
+		                		bricks.get(i).setStroke(Color.WHITE);
+		                		bricks.remove(i);
+		        
+		                		int newScore = counter++;
+		                		
+		                		newone.setText("Score: " + (newScore + 1));
+		                		
+		                		break;
 	                	}
 	                	
 	                	
 	                }
 	               
+	                //Losing Screen
 	                if (ball.getCenterY() >= 600)
 	        		{
 	                	timeline.pause();
@@ -192,14 +195,13 @@ public class BreakoutScene {
 	            			BreakoutScene.loadingStage.show();
 	            		});
 
-	            		// Prepare and show about stage
-
 	            		winStage.setScene(scene);
 	            		winStage.sizeToScene();
 	            		winStage.setResizable(false);
 	            		winStage.show();
 	        		}
 	                
+	                //Winning Screen
 	                if (counter == 30)
 	                {
 	                	timeline.pause();
@@ -227,14 +229,14 @@ public class BreakoutScene {
 	            			newScene();
 	            			BreakoutScene.loadingStage.show();
 	            		});
-
-	            		// Prepare and show about stage
 	            		
 	            		winStage.setScene(scene);
 	            		winStage.sizeToScene();
 	            		winStage.setResizable(false);
 	            		winStage.show();
 	                }
+	                
+	                //Collisions with the walls
 	                if((ball.getCenterX() + 10 >= rightBound) || (ball.getCenterX() - 10 <= leftBound))
 	                {  
 	                	dx = -dx;
@@ -246,13 +248,11 @@ public class BreakoutScene {
 	                }
 	               
 	    		}
-	    	} // handle
+	    	}
 	    };
 	    
 	    
-	    
-			
-		    
+	    //time line
 		KeyFrame keyFrame = new KeyFrame(Duration.millis(39), handler);
 		    timeline.setCycleCount(Timeline.INDEFINITE);
 		    timeline.getKeyFrames().add(keyFrame);
@@ -265,17 +265,11 @@ public class BreakoutScene {
 		return scene;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/**
+	 * This method resets the bricks and other nodes
+	 *   @return nothing
+	 *
+	 */
 	public static void resetBricks()
 	{
 		group.getChildren().clear();
@@ -340,11 +334,13 @@ public class BreakoutScene {
 
 	
 	
-	public static void timelinemethod()
-	{
-	    timeline.play();
-	}
 	
+	/**
+	 * This method makes the game reset to it's original scene
+	 * 
+	 *   @return nothing
+	 *
+	 */
 	public static void newScene()
 	{
 		timeline.stop();
@@ -528,7 +524,7 @@ public class BreakoutScene {
     };
     
     
-timelinemethod();
+    timeline.play();
 
 	group.requestFocus();
 	
