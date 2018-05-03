@@ -19,11 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * @author Adeeb Zaman
- *
- */
-/**
- * @author Adeeb
+ * @author Adeeb Zaman & Manas Chakka
  *
  */
 public class MinesweeperCell {

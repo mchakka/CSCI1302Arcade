@@ -16,6 +16,6 @@
 
 1. **DONE:** Finished Minesweeper gameplay and functionality. Added high score table. Added Spacebar functionality to release the ball when pressed
 
-2. **TODO:** Finish minesweeper toolbar. Improve game selection graphics. Create bricks, make ball move
+2. **TODO:** Finish minesweeper toolbar. Improve game selection graphics. Create bricks, make ball move and add extra credit
 
 3. **PROB:** Figuring out how to fix final/effectivetly final errors in anonymouus classes and lambdas
