@@ -6,16 +6,14 @@ import java.util.Random;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
@@ -31,7 +29,7 @@ public class ArcadeApp extends Application {
 
 		BorderPane bp = new BorderPane();
 
-		VBox gameSelection = new VBox(40);
+		HBox gameSelection = new HBox(40);
 		gameSelection.setPadding(new Insets(40));
 
 		MenuBar menuBar = new MenuBar();
@@ -55,17 +53,15 @@ public class ArcadeApp extends Application {
 
 		Scene breakoutScene = BreakoutScene.createBreakoutScene(stage, mainScene);
 
-		Button breakoutButton = new Button();
-		breakoutButton.setText("Start a new game of Breakout");
-		breakoutButton.setOnAction(e -> {
+		ImageView breakoutButton = new ImageView(new Image("breakout.png"));
+		breakoutButton.setOnMouseClicked(e -> {
 			stage.setScene(breakoutScene);
 			stage.sizeToScene();
 			BreakoutScene.loadingStage.show();
 		});
 
-		Button minesweeperButton = new Button();
-		minesweeperButton.setText("Start a new game of Minesweeper");
-		minesweeperButton.setOnAction(e -> {
+		ImageView minesweeperButton = new ImageView(new Image("minesweeper.png"));
+		minesweeperButton.setOnMouseClicked(e -> {
 
 			stage.setScene(MinesweeperCell.createMinesweeperScene(stage, mainScene));
 			stage.sizeToScene();
