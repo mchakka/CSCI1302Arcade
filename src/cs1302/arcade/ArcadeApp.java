@@ -106,7 +106,7 @@ public class ArcadeApp extends Application {
 
 			long start = System.currentTimeMillis();
 
-			while (System.currentTimeMillis() - start < 3000) {
+			while (System.currentTimeMillis() - start < 4000) {
 				System.out.print("");
 			}
 
