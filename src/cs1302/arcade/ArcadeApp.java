@@ -24,6 +24,11 @@ public class ArcadeApp extends Application {
 
 	Random rng = new Random();
 
+	/**
+	 * Main method that contains the stage for the program
+	 * 
+	 * @param stage - main stage
+	 */
 	@Override
 	public void start(Stage stage) {
 
