@@ -177,6 +177,8 @@ public class BreakoutScene {
 	            		});
 	            		
 	                	vbox.getChildren().addAll(new Text("You won! Your score is " + counter), startOver);
+	                	
+	                	HighscoreTable.newBreakoutScore(counter);
 
 	            		Scene scene = new Scene(vbox);
 
