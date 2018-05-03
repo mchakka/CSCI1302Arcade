@@ -40,10 +40,12 @@ public class BreakoutScene {
 	static Button backButton = new Button();
 	static Button easyButton = new Button();
 	static Button hardButton = new Button();
-	static TextField newone = new TextField();
+	static Text newone = new Text("Score: " + counter);
 	static Timeline timeline = new Timeline();
 	public static Stage loadingStage = new Stage();
-	static Text difficultyLevel = new Text("Easy");
+	static Text difficultyLevel = new Text("Difficulty Level:");
+	
+	
 	public static Scene createBreakoutScene(Stage stage, Scene mainScene) {
 		group.getChildren().clear();
 		Scene scene = new Scene(group, 600, 600);
@@ -56,6 +58,10 @@ public class BreakoutScene {
 		
 		difficultyLevel.setX(400);
 		difficultyLevel.setY(50);
+		
+		newone.setX(200);
+		newone.setY(50);
+		
 		VBox vbox2 = new VBox();
     	vbox2.getChildren().addAll(easyButton, hardButton, text2);
     	Scene scene2 = new Scene(vbox2);
@@ -68,14 +74,14 @@ public class BreakoutScene {
 		easyButton.setOnAction( e -> {
 			dx =10;
 			dy =4;
-			difficultyLevel.setText("Easy");
+			difficultyLevel.setText("Difficulty Level: Easy");
 			loadingStage.close();
 		});
 		
 		hardButton.setOnAction( e -> {
 			dx =30;
 			dy =12;
-			difficultyLevel.setText("Hard");
+			difficultyLevel.setText("Difficulty Level: Hard");
 			loadingStage.close();
 		});
 		
@@ -166,6 +172,7 @@ public class BreakoutScene {
 	            			newone.setText("Score: " + 0);
 	            			newScene();
 	            			winStage.close();
+	            			BreakoutScene.loadingStage.show();
 
 	            		});
 	            		
@@ -175,6 +182,7 @@ public class BreakoutScene {
 
 	            		winStage.setOnCloseRequest(e -> {
 	            			newScene();
+	            			BreakoutScene.loadingStage.show();
 	            		});
 
 	            		// Prepare and show about stage
@@ -185,6 +193,42 @@ public class BreakoutScene {
 	            		winStage.show();
 	        		}
 	                
+	                if (counter == 30)
+	                {
+	                	timeline.pause();
+	                	VBox vbox3 = new VBox();
+	            		vbox3.setPadding(new Insets(20));
+
+	            		vbox3.setStyle("-fx-text-size:20");
+
+	            		Button startOver = new Button();
+	            		startOver.setText("Play Again");
+	            		startOver.setOnAction(e -> {
+	            			group.getChildren().clear();
+	            			newone.setText("Score: " + 0);
+	            			HighscoreTable.newBreakoutScore(counter);
+	            			newScene();
+	            			winStage.close();
+	            			BreakoutScene.loadingStage.show();
+
+	            		});
+	            		
+	                	vbox3.getChildren().addAll(new Text("You Won! Your score is " + counter), startOver);
+
+	            		Scene scene = new Scene(vbox3);
+
+	            		winStage.setOnCloseRequest(e -> {
+	            			newScene();
+	            			BreakoutScene.loadingStage.show();
+	            		});
+
+	            		// Prepare and show about stage
+	            		winStage.initModality(Modality.APPLICATION_MODAL);
+	            		winStage.setScene(scene);
+	            		winStage.sizeToScene();
+	            		winStage.setResizable(false);
+	            		winStage.show();
+	                }
 	                if((ball.getCenterX() + 10 >= rightBound) || (ball.getCenterX() - 10 <= leftBound))
 	                {  
 	                	dx = -dx;
@@ -406,15 +450,17 @@ public class BreakoutScene {
             			HighscoreTable.newBreakoutScore(counter);
             			newScene();
             			winStage.close();
+            			BreakoutScene.loadingStage.show();
 
             		});
             		
-                	vbox.getChildren().addAll(new Text("You won! Your score is " + counter), startOver);
+                	vbox.getChildren().addAll(new Text("Game Over! Your score is " + counter), startOver);
 
             		Scene scene = new Scene(vbox);
 
             		winStage.setOnCloseRequest(e -> {
             			newScene();
+            			BreakoutScene.loadingStage.show();
             		});
 
             		// Prepare and show about stage
@@ -425,6 +471,42 @@ public class BreakoutScene {
             		winStage.show();
         		}
                 
+                if (counter == 30)
+                {
+                	timeline.pause();
+                	VBox vbox3 = new VBox();
+            		vbox3.setPadding(new Insets(20));
+
+            		vbox3.setStyle("-fx-text-size:20");
+
+            		Button startOver = new Button();
+            		startOver.setText("Play Again");
+            		startOver.setOnAction(e -> {
+            			group.getChildren().clear();
+            			newone.setText("Score: " + 0);
+            			HighscoreTable.newBreakoutScore(counter);
+            			newScene();
+            			winStage.close();
+            			BreakoutScene.loadingStage.show();
+
+            		});
+            		
+                	vbox3.getChildren().addAll(new Text("You Won! Your score is " + counter), startOver);
+
+            		Scene scene = new Scene(vbox3);
+
+            		winStage.setOnCloseRequest(e -> {
+            			newScene();
+            			BreakoutScene.loadingStage.show();
+            		});
+
+            		// Prepare and show about stage
+            		winStage.initModality(Modality.APPLICATION_MODAL);
+            		winStage.setScene(scene);
+            		winStage.sizeToScene();
+            		winStage.setResizable(false);
+            		winStage.show();
+                }
                 if((ball.getCenterX() + 10 >= rightBound) || (ball.getCenterX() - 10 <= leftBound))
                 {  
                 	dx = -dx;
