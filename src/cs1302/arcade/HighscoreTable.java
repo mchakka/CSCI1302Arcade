@@ -16,6 +16,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
+ * Holds the top 5 scores for
+ * breakout and minesweeper
+ * 
  * @author Adeeb Zaman & Manas Chakka
  *
  */
@@ -25,12 +28,14 @@ public class HighscoreTable {
 	static int[] minesweeperScores = new int[5]; // High scores from Minesweeper
 	
 	
+	/**
+	 * Displays table of highscores
+	 * 
+	 */
 	public static void displayHighscoreTable() {
 		
 		Stage stage = new Stage();
 		stage.setTitle("High Scores");
-
-		
 
 
 		VBox breakout = new VBox();
@@ -68,8 +73,12 @@ public class HighscoreTable {
 	}
 	
 
+	/**
+	 * Gets scores from the highscores.txt file
+	 */
 	public static void getScores() {
 
+		
 		File hsFile = new File("src/highscores.txt");
 
 		try {
@@ -79,12 +88,16 @@ public class HighscoreTable {
 				// Get high scores from file
 				Scanner file = new Scanner(hsFile);
 
+				
+				//Get breakout scores
 				for (int i = 0; i < breakoutScores.length; i++) {
 
 					breakoutScores[i] = file.nextInt();
 
 				}
 
+				
+				//Get minesweeper scores
 				for (int i = 0; i < minesweeperScores.length; i++) {
 
 					minesweeperScores[i] = file.nextInt();
@@ -95,6 +108,8 @@ public class HighscoreTable {
 
 			} else {
 
+				//If file doesn't exist, create it
+				
 				// Create file and initialize high scores to zero
 				BufferedWriter writer = new BufferedWriter(new FileWriter(hsFile));
 
@@ -115,15 +130,24 @@ public class HighscoreTable {
 
 	}
 
+	/**
+	 * Writes current scores to file
+	 */
 	public static void writeScoresToFile() {
+		
+		
 		BufferedWriter writer;
 		try {
+			
 			writer = new BufferedWriter(new FileWriter(new File("src/highscores.txt")));
 
+			
+			//Write breakout scores
 			for(int x : breakoutScores) {
 				writer.write(x + "\n");
 			}
 			
+			//Write minesweeper scores
 			for(int x : minesweeperScores) {
 				writer.write(x + "\n");
 			}
@@ -136,6 +160,13 @@ public class HighscoreTable {
 		}
 	}
 
+	/**
+	 * Adds new score to it's proper location
+	 * on the high score table if it is
+	 * high enough
+	 * 
+	 * @param score - score
+	 */
 	public static void newBreakoutScore(int score) {
 
 		for (int i = breakoutScores.length - 1; i >= 0; i--) {
@@ -151,10 +182,19 @@ public class HighscoreTable {
 
 		}
 		
+		//Write changed scores to file
 		writeScoresToFile();
 
 	}
 
+	
+	/**
+	 * Adds new score to it's proper location
+	 * on the high score table if it is
+	 * high enough
+	 * 
+	 * @param score - score
+	 */
 	public static void newMinesweeperScore(int score) {
 
 		for (int i = minesweeperScores.length - 1; i >= 0; i--) {
@@ -179,6 +219,7 @@ public class HighscoreTable {
 		}
 		
 		
+		//Write changed scores to file
 		writeScoresToFile();
 
 	}
