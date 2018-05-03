@@ -224,7 +224,7 @@ public class BreakoutScene {
 	            		});
 
 	            		// Prepare and show about stage
-	            		winStage.initModality(Modality.APPLICATION_MODAL);
+	            		
 	            		winStage.setScene(scene);
 	            		winStage.sizeToScene();
 	            		winStage.setResizable(false);
