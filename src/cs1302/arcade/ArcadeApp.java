@@ -68,8 +68,10 @@ public class ArcadeApp extends Application {
 		Button minesweeperButton = new Button();
 		minesweeperButton.setText("Start a new game of Minesweeper");
 		minesweeperButton.setOnAction(e -> {
+			
 			stage.setScene(MinesweeperCell.createMinesweeperScene(stage, mainScene));
 			stage.sizeToScene();
+		
 		});
 		
 		
@@ -90,6 +92,7 @@ public class ArcadeApp extends Application {
 		stage.setMinWidth(200);
 		stage.setScene(mainScene);
 		stage.sizeToScene();
+		stage.setResizable(false);
 		stage.show();
 
 		// the group must request input focus to receive key events

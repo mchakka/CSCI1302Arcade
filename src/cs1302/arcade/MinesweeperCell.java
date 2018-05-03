@@ -22,8 +22,13 @@ public class MinesweeperCell {
 
 	static final int DIFFICULTY = 20; // Percent of the board to be filled with mines
 
-	static MinesweeperCell[][] buttons = new MinesweeperCell[16][16];
+	static final int WIDTH = 16;
+	static final int HEIGHT = 16;
+	
+	static MinesweeperCell[][] buttons = new MinesweeperCell[WIDTH][HEIGHT];
 	static GridPane grid = new GridPane();
+	static ImageView smileButton;
+	static Text score;
 
 	static class Timer {
 
@@ -60,8 +65,9 @@ public class MinesweeperCell {
 
 	}
 
-	static int numOfMines;
-
+	static int uncovered;
+	
+	
 	private ImageView iv;
 
 	private boolean covered = true;
@@ -83,6 +89,34 @@ public class MinesweeperCell {
 		Timer timer = new Timer();
 
 		toolbar.setRight(timer.timerText);
+		
+		smileButton = new ImageView("smile.png");
+		smileButton.setOnMouseClicked(e -> {
+
+			if (e.getButton().equals(MouseButton.PRIMARY)) {
+				startNewGame();
+			}
+
+		});
+
+		// If this is being clicked
+		smileButton.setOnMousePressed(e -> {
+
+			if (e.getButton().equals(MouseButton.PRIMARY)) {
+				smileButton.setImage(new Image("gasp.png"));
+			}
+
+		});
+
+		smileButton.setOnMouseExited(e -> {
+			smileButton.setImage(new Image("smile.png"));
+		});
+		
+		toolbar.setCenter(smileButton);
+		
+		score = new Text("0");
+		
+		toolbar.setLeft(score);
 
 		bp.setCenter(toolbar);
 
@@ -106,8 +140,8 @@ public class MinesweeperCell {
 
 	public static void startNewGame() {
 
-		numOfMines = 0;
-
+		uncovered = 0;
+		
 		grid.getChildren().clear();
 
 		int l = 0;
@@ -146,6 +180,10 @@ public class MinesweeperCell {
 			}
 		}
 
+		smileButton.setImage(new Image("smile.png"));
+		
+		score.setText("0");
+		
 		Timer.setText("0");
 		Timer.setTimer(true);
 	}
@@ -176,6 +214,7 @@ public class MinesweeperCell {
 
 			if (covered && !flagged && e.getButton().equals(MouseButton.PRIMARY)) {
 				iv.setImage(new Image("0.png"));
+				smileButton.setImage(new Image("gasp.png"));
 			}
 
 		});
@@ -188,12 +227,12 @@ public class MinesweeperCell {
 					iv.setImage(new Image("cell.png"));
 				}
 			}
+			smileButton.setImage(new Image("smile.png"));
 		});
 
 		// Place mines randomly
 		if (Math.random() * 100 < DIFFICULTY) {
 			containsMine = true;
-			numOfMines++;
 			
 		} else {
 			containsMine = false;
@@ -231,12 +270,16 @@ public class MinesweeperCell {
 						}
 					}
 				}
+				
+				smileButton.setImage(new Image("smile.png"));
+				uncovered++;
+				score.setText(calculateScore() + "");
 
 			} else {
 
 				MinesweeperCell.iv.setImage(new Image("mine.png"));
 
-				gameOver();
+				gameOver(calculateScore());
 
 			}
 
@@ -279,10 +322,8 @@ public class MinesweeperCell {
 
 	}
 	
-	
 	public static int calculateScore() {
-		double d = (buttons.length * buttons[0].length + numOfMines - (Timer.getTime()*10));
-		return (int) d;
+		return (int) (DIFFICULTY*WIDTH*HEIGHT*uncovered/100);
 	}
 
 	public static void win() {
@@ -331,9 +372,11 @@ public class MinesweeperCell {
 		
 	}
 
-	public static void gameOver() {
+	public static void gameOver(int score) {
 
 		Timer.setTimer(false);
+		
+		
 
 		try {
 			Thread.sleep(100);
@@ -346,7 +389,7 @@ public class MinesweeperCell {
 		Stage gameOverStage = new Stage();
 		gameOverStage.setTitle("Game Over");
 
-		VBox vbox = new VBox(new Text("Game Over!"));
+		VBox vbox = new VBox(new Text("Game Over!"), new Text("Your score was " + score));
 		vbox.setPadding(new Insets(20));
 
 		vbox.setStyle("-fx-text-size:20");
@@ -375,6 +418,9 @@ public class MinesweeperCell {
 		gameOverStage.sizeToScene();
 		gameOverStage.setResizable(false);
 		gameOverStage.show();
+		
+		
+		smileButton.setImage(new Image("frown.png"));
 	}
 
 }
