@@ -63,6 +63,7 @@ public class ArcadeApp extends Application {
 		breakoutButton.setOnAction(e -> {			
 			stage.setScene(breakoutScene);
 			stage.sizeToScene();
+			BreakoutScene.loadingStage.show();
 		});
 		
 		Button minesweeperButton = new Button();
