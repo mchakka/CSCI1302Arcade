@@ -2,13 +2,8 @@
 30
 29
 13
-<<<<<<< HEAD
 3
 11008
-=======
-13
-3
->>>>>>> branch 'master' of https://github.com/adeeb897/cs1302-arcade.git
 10956
 10700
 211
