@@ -18,18 +18,32 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * @author Adeeb Zaman
+ *
+ */
+/**
+ * @author Adeeb
+ *
+ */
 public class MinesweeperCell {
 
 	static final int DIFFICULTY = 20; // Percent of the board to be filled with mines
 
 	static final int WIDTH = 16;
 	static final int HEIGHT = 16;
-	
-	static MinesweeperCell[][] buttons = new MinesweeperCell[WIDTH][HEIGHT];
-	static GridPane grid = new GridPane();
-	static ImageView smileButton;
-	static Text score;
 
+	static MinesweeperCell[][] buttons = new MinesweeperCell[WIDTH][HEIGHT]; // Array of cells in the board
+	static GridPane grid = new GridPane(); // Gridpane to hold the buttons
+	static ImageView smileButton; // Reset button
+	static Text score; // Score
+
+	/**
+	 * Keeps track of time for timer object
+	 * 
+	 * @author Adeeb Zaman
+	 *
+	 */
 	static class Timer {
 
 		static Timer t;
@@ -37,6 +51,9 @@ public class MinesweeperCell {
 		Text timerText = new Text();
 		Timeline timeline = new Timeline();
 
+		/**
+		 * Creates a new Timer object
+		 */
 		public Timer() {
 			KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> {
 				timerText.setText((Integer.parseInt(timerText.getText()) + 1) + "");
@@ -48,14 +65,30 @@ public class MinesweeperCell {
 			t = this;
 		}
 
+		/**
+		 * Set text of timer to new input
+		 * 
+		 * @param input
+		 */
 		public static void setText(String input) {
 			t.timerText.setText(input);
 		}
 
+		/**
+		 * Get current time from timer
+		 * 
+		 * @return time
+		 */
 		public static int getTime() {
 			return Integer.parseInt(t.timerText.getText());
 		}
 
+		/**
+		 * Turns timer on or off
+		 * 
+		 * @param on
+		 *            - whether timer is on
+		 */
 		public static void setTimer(boolean on) {
 			if (on)
 				t.timeline.play();
@@ -65,19 +98,27 @@ public class MinesweeperCell {
 
 	}
 
-	static int uncovered;
-	
-	
-	private ImageView iv;
+	static int uncoveredNum; // Number of total uncovered blocks
 
-	private boolean covered = true;
-	private boolean flagged = false;
+	private ImageView iv; // ImageView for this cell
 
-	private boolean containsMine;
-	private int adjacentMines;
-	private int listNum;
-	private int row, col;
+	private boolean covered = true; // Whether the cell is covered
+	private boolean flagged = false; // Whether the cell is flagged
 
+	private boolean containsMine; // Whether the cell contains a mine
+	private int adjacentMines; // The number of adjacent mines
+	private int listNum; // The number of the ImageView in the GridPane list
+	private int row, col; // The row and col of the ImageView on the grid
+
+	/**
+	 * Constructs the minesweeper scene and starts a new game
+	 * 
+	 * @param stage
+	 *            - Main stage to put minesweeper scene on
+	 * @param mainScene
+	 *            - main game selection scene
+	 * @return
+	 */
 	public static Scene createMinesweeperScene(Stage stage, Scene mainScene) {
 		BorderPane bp = new BorderPane();
 		bp.setPadding(new Insets(10));
@@ -86,10 +127,12 @@ public class MinesweeperCell {
 		BorderPane toolbar = new BorderPane();
 		toolbar.setPadding(new Insets(15));
 
+		// Make timer
 		Timer timer = new Timer();
 
 		toolbar.setRight(timer.timerText);
-		
+
+		// Make restart button
 		smileButton = new ImageView("smile.png");
 		smileButton.setOnMouseClicked(e -> {
 
@@ -111,15 +154,17 @@ public class MinesweeperCell {
 		smileButton.setOnMouseExited(e -> {
 			smileButton.setImage(new Image("smile.png"));
 		});
-		
+
 		toolbar.setCenter(smileButton);
-		
+
+		// Make score text
 		score = new Text("0");
-		
+
 		toolbar.setLeft(score);
 
 		bp.setCenter(toolbar);
 
+		// Make back button
 		Button backButton = new Button();
 		backButton.setText("Back");
 		backButton.setOnAction(e -> {
@@ -128,20 +173,26 @@ public class MinesweeperCell {
 		});
 
 		bp.setTop(backButton);
-
-		MinesweeperCell.startNewGame();
-
 		bp.setBottom(grid);
+
+		// Start the game
+		MinesweeperCell.startNewGame();
 
 		Scene MinesweeperCell = new Scene(bp);
 
 		return MinesweeperCell;
 	}
 
+	/**
+	 * Starts a new game of Minesweeper
+	 * 
+	 */
 	public static void startNewGame() {
 
-		uncovered = 0;
-		
+		// Reset number of mines uncovered
+		uncoveredNum = 0;
+
+		// Clear and fill grid with new buttons
 		grid.getChildren().clear();
 
 		int l = 0;
@@ -158,13 +209,14 @@ public class MinesweeperCell {
 			}
 		}
 
-		// Count adjacent mines
+		// Count adjacent mines for each button
 		int count;
 		for (int row = 0; row < buttons.length; row++) {
 			for (int col = 0; col < buttons[0].length; col++) {
 
 				count = 0;
 
+				// Loop through each adjacent cell
 				for (int r = Math.max(0, row - 1); r <= Math.min(buttons.length - 1, row + 1); r++) {
 
 					for (int c = Math.max(0, col - 1); c <= Math.min(buttons[r].length - 1, col + 1); c++) {
@@ -180,14 +232,27 @@ public class MinesweeperCell {
 			}
 		}
 
+		// Initialize variables
 		smileButton.setImage(new Image("smile.png"));
-		
+
 		score.setText("0");
-		
+
 		Timer.setText("0");
 		Timer.setTimer(true);
 	}
 
+	/**
+	 * Creates a new cell object
+	 * 
+	 * @param l
+	 *            - number of the ImageView in the gridpane list
+	 * @param r
+	 *            - row number of this cell
+	 * @param c
+	 *            - column number of this cell
+	 * @param onClicked
+	 *            - EventHandler to set new image in grid
+	 */
 	public MinesweeperCell(int l, int r, int c, EventHandler<ActionEvent> onClicked) {
 
 		// Initialize cell image
@@ -197,14 +262,17 @@ public class MinesweeperCell {
 		// If this cell is clicked
 		iv.setOnMouseClicked(e -> {
 
+			// If it is a left click uncover the cell, If it is a right click, flag the cell
 			if (e.getButton().equals(MouseButton.PRIMARY)) {
 				uncover(this);
 			} else if (e.getButton().equals(MouseButton.SECONDARY)) {
 				flag();
 			}
 
+			// Check if the player has won
 			checkForWin();
 
+			// Update cell image in grid
 			onClicked.handle(new ActionEvent());
 
 		});
@@ -219,6 +287,7 @@ public class MinesweeperCell {
 
 		});
 
+		// Reset image when mouse moves
 		iv.setOnMouseExited(e -> {
 			if (covered) {
 				if (flagged) {
@@ -233,7 +302,6 @@ public class MinesweeperCell {
 		// Place mines randomly
 		if (Math.random() * 100 < DIFFICULTY) {
 			containsMine = true;
-			
 		} else {
 			containsMine = false;
 		}
@@ -244,18 +312,26 @@ public class MinesweeperCell {
 
 	}
 
+	/**
+	 * Uncovers the cell
+	 * 
+	 * @param MinesweeperCell
+	 *            - the cell to uncover
+	 */
 	public static void uncover(MinesweeperCell MinesweeperCell) {
 
+		// If it can be uncovered
 		if (MinesweeperCell.covered && !MinesweeperCell.flagged) {
 
 			MinesweeperCell.covered = false;
 
+			// If it does not contain a mine
 			if (!MinesweeperCell.containsMine) {
 
-				// Uncover current mine
+				// Uncover current cells
 				MinesweeperCell.iv.setImage(new Image(MinesweeperCell.adjacentMines + ".png"));
 
-				// Uncover adjacent mines
+				// Uncover adjacent cells recursively
 				if (MinesweeperCell.adjacentMines == 0) {
 					for (int r = Math.max(0, MinesweeperCell.row - 1); r <= Math.min(buttons.length - 1,
 							MinesweeperCell.row + 1); r++) {
@@ -270,30 +346,44 @@ public class MinesweeperCell {
 						}
 					}
 				}
-				
+
+				// Reset reset button
 				smileButton.setImage(new Image("smile.png"));
-				uncovered++;
+
+				// Increment uncovered
+				uncoveredNum++;
+
+				// Update score
 				score.setText(calculateScore() + "");
 
 			} else {
 
+				// If it is a mine set image
 				MinesweeperCell.iv.setImage(new Image("mine.png"));
 
-				gameOver(calculateScore());
+				// Display game over screen
+				endGame(false);
 
 			}
 
 		}
 	}
 
+	/**
+	 * Flag current mine
+	 * 
+	 */
 	public void flag() {
 
+		// If it is covered
 		if (covered) {
 
 			if (flagged) {
+				// If it is already flagged, then unflag
 				iv.setImage(new Image("cell.png"));
 				flagged = false;
 			} else {
+				// If it is not flagged, then flag
 				iv.setImage(new Image("flag.png"));
 				flagged = true;
 			}
@@ -302,13 +392,18 @@ public class MinesweeperCell {
 
 	}
 
+	/**
+	 * Checks if the player has won
+	 */
 	public static void checkForWin() {
 		// Loop through grid and check if every mine is marked
 		for (int r = 0; r < buttons.length; r++) {
 
 			for (int c = 0; c < buttons[0].length; c++) {
 
-				if ((buttons[r][c].containsMine && !buttons[r][c].flagged) || (buttons[r][c].covered && !buttons[r][c].containsMine)) {
+				// If a mine is not marked, or an empty cell has not been uncovered, return
+				if ((buttons[r][c].containsMine && !buttons[r][c].flagged)
+						|| (buttons[r][c].covered && !buttons[r][c].containsMine)) {
 
 					return;
 
@@ -318,65 +413,31 @@ public class MinesweeperCell {
 
 		}
 
-		win();
+		// If all cells have been uncovered, display win screen
+		endGame(true);
 
 	}
-	
+
+	/**
+	 * Calculates current score
+	 * 
+	 * @return score
+	 */
 	public static int calculateScore() {
-		return (int) (DIFFICULTY*WIDTH*HEIGHT*uncovered/100);
+		return (int) (DIFFICULTY * WIDTH * HEIGHT * uncoveredNum / 100);
 	}
 
-	public static void win() {
 
+
+	/**
+	 * Displays end game screen and starts a new game
+	 * 
+	 * @param won - Whether the user won or not
+	 */
+	public static void endGame(boolean won) {
+
+		// Turn off timer
 		Timer.setTimer(false);
-		
-		int score = calculateScore();
-		
-		HighscoreTable.newMinesweeperScore(score);
-		
-		
-
-		// Create new stage for win
-		Stage winStage = new Stage();
-		winStage.setTitle("Congratulations!");
-
-		VBox vbox = new VBox();
-		vbox.setPadding(new Insets(20));
-
-		vbox.setStyle("-fx-text-size:20");
-
-		Button startOver = new Button();
-		startOver.setText("Play Again");
-		startOver.setOnAction(e -> {
-
-			startNewGame();
-			winStage.close();
-
-		});
-
-
-		vbox.getChildren().addAll(new Text("You won! Your score is " + score), startOver);
-
-		Scene scene = new Scene(vbox);
-
-		winStage.setOnCloseRequest(e -> {
-			startNewGame();
-		});
-
-		// Prepare and show about stage
-		winStage.initModality(Modality.APPLICATION_MODAL);
-		winStage.setScene(scene);
-		winStage.sizeToScene();
-		winStage.setResizable(false);
-		winStage.show();
-		
-	}
-
-	public static void gameOver(int score) {
-
-		Timer.setTimer(false);
-		
-		
 
 		try {
 			Thread.sleep(100);
@@ -387,9 +448,10 @@ public class MinesweeperCell {
 
 		// Create new stage for game over screen
 		Stage gameOverStage = new Stage();
-		gameOverStage.setTitle("Game Over");
+		gameOverStage.setTitle(won ? "Congratulations" : "Game Over");
 
-		VBox vbox = new VBox(new Text("Game Over!"), new Text("Your score was " + score));
+		VBox vbox = new VBox(won ? new Text("You won!") : new Text("Game Over!"),
+				new Text("Your score was " + calculateScore()));
 		vbox.setPadding(new Insets(20));
 
 		vbox.setStyle("-fx-text-size:20");
@@ -397,30 +459,39 @@ public class MinesweeperCell {
 		Button startOver = new Button();
 		startOver.setText("Play Again");
 		startOver.setOnAction(e -> {
-
+			// Start a new game when play again button is pressed
 			startNewGame();
 			gameOverStage.close();
 
 		});
 
-		// Add my personal info
 		vbox.getChildren().add(startOver);
 
 		Scene scene = new Scene(vbox);
 
 		gameOverStage.setOnCloseRequest(e -> {
+			// Start a new game when game over window is closed
 			startNewGame();
 		});
 
-		// Prepare and show about stage
+		// Prepare and show game over stage
 		gameOverStage.initModality(Modality.APPLICATION_MODAL);
 		gameOverStage.setScene(scene);
 		gameOverStage.sizeToScene();
 		gameOverStage.setResizable(false);
 		gameOverStage.show();
-		
-		
-		smileButton.setImage(new Image("frown.png"));
-	}
 
+		
+		//If user won
+		if (won) {
+			// Calculate score and send to highscore table
+			int score = calculateScore();
+
+			HighscoreTable.newMinesweeperScore(score);
+		} else {
+			//If lost, set reset button to frown
+			smileButton.setImage(new Image("frown.png"));
+		}
+
+	}
 }
