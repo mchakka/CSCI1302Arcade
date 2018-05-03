@@ -90,6 +90,13 @@ public class ArcadeApp extends Application {
 
 	} // start
 
+	/**
+	 * Plays the animation and goes
+	 * to the game selection scene when it is done
+	 * 
+	 * @param stage - main stage
+	 * @param mainScene - game selection scene
+	 */
 	public static void animateStage(Stage stage, Scene mainScene) {
 
 		BorderPane outer = new BorderPane();
