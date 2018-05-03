@@ -43,7 +43,7 @@ public class BreakoutScene {
 	static TextField newone = new TextField();
 	static Timeline timeline = new Timeline();
 	public static Stage loadingStage = new Stage();
-	
+	static Text difficultyLevel = new Text("Easy");
 	public static Scene createBreakoutScene(Stage stage, Scene mainScene) {
 		group.getChildren().clear();
 		Scene scene = new Scene(group, 600, 600);
@@ -54,7 +54,8 @@ public class BreakoutScene {
 		hardButton.setText("Hard");
 		Text text2 = new Text("Choose one of the difficulty levels before starting. To release the ball, press spacebar on your keyboard!");
 		
-		
+		difficultyLevel.setX(400);
+		difficultyLevel.setY(50);
 		VBox vbox2 = new VBox();
     	vbox2.getChildren().addAll(easyButton, hardButton, text2);
     	Scene scene2 = new Scene(vbox2);
@@ -67,12 +68,14 @@ public class BreakoutScene {
 		easyButton.setOnAction( e -> {
 			dx =10;
 			dy =4;
+			difficultyLevel.setText("Easy");
 			loadingStage.close();
 		});
 		
 		hardButton.setOnAction( e -> {
 			dx =30;
 			dy =12;
+			difficultyLevel.setText("Hard");
 			loadingStage.close();
 		});
 		
@@ -281,7 +284,7 @@ public class BreakoutScene {
 		ball.setFill(Color.ORANGE);
 		rectangle.setFill(Color.BLACK);
 
-		
+		group.getChildren().add(difficultyLevel);
 		
 	}
 
