@@ -27,6 +27,10 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/**
+ * @author Adeeb Zaman & Manas Chakka
+ *
+ */
 public class BreakoutScene {
 
 	static Circle ball = new Circle();
@@ -55,7 +59,8 @@ public class BreakoutScene {
 		easyButton.setText("Easy");
 		hardButton.setText("Hard");
 		Text text2 = new Text("Choose one of the difficulty levels before starting. To release the ball, press spacebar on your keyboard!");
-		
+		Text text3= new Text("Press/Hold Left Keyboard button to move left");
+		Text text4= new Text("Press/Hold Right Keyboard button to move right");
 		difficultyLevel.setX(400);
 		difficultyLevel.setY(50);
 		
@@ -63,7 +68,7 @@ public class BreakoutScene {
 		newone.setY(50);
 		
 		VBox vbox2 = new VBox();
-    	vbox2.getChildren().addAll(easyButton, hardButton, text2);
+    	vbox2.getChildren().addAll(easyButton, hardButton, text2, text3, text4);
     	Scene scene2 = new Scene(vbox2);
 		loadingStage.initModality(Modality.APPLICATION_MODAL);
 		loadingStage.setScene(scene2);

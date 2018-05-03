@@ -18,6 +18,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * @author Adeeb Zaman & Manas Chakka
+ *
+ */
 public class ArcadeApp extends Application {
 
 	Random rng = new Random();

@@ -15,6 +15,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * @author Adeeb Zaman & Manas Chakka
+ *
+ */
 public class HighscoreTable {
 
 	static int[] breakoutScores = new int[5]; // High scores from Breakout
