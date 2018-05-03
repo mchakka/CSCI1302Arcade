@@ -23,5 +23,5 @@
 
 ## THURS 2018-05-03 @ 4:00 PM EST
 
-1. **DONE:** Updated game selection list. Improved minesweeper visuals. Added animated intro. Added high score table.
+1. **DONE:** Updated game selection list. Improved minesweeper visuals. Added animated intro. Added high score table. Finshed breakout mechanics.
 
