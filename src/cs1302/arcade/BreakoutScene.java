@@ -176,7 +176,7 @@ public class BreakoutScene {
 
 	            		});
 	            		
-	                	vbox.getChildren().addAll(new Text("You won! Your score is " + counter), startOver);
+	                	vbox.getChildren().addAll(new Text("Game Over! Your score is " + counter), startOver);
 	                	
 	                	HighscoreTable.newBreakoutScore(counter);
 
@@ -208,7 +208,6 @@ public class BreakoutScene {
 	            		startOver.setOnAction(e -> {
 	            			group.getChildren().clear();
 	            			newone.setText("Score: " + 0);
-	            			HighscoreTable.newBreakoutScore(counter);
 	            			newScene();
 	            			winStage.close();
 	            			BreakoutScene.loadingStage.show();
@@ -218,7 +217,7 @@ public class BreakoutScene {
 	                	vbox3.getChildren().addAll(new Text("You Won! Your score is " + counter), startOver);
 
 	            		Scene scene = new Scene(vbox3);
-
+	            		HighscoreTable.newBreakoutScore(counter);
 	            		winStage.setOnCloseRequest(e -> {
 	            			newScene();
 	            			BreakoutScene.loadingStage.show();
@@ -449,7 +448,7 @@ public class BreakoutScene {
             		startOver.setOnAction(e -> {
             			group.getChildren().clear();
             			newone.setText("Score: " + 0);
-            			HighscoreTable.newBreakoutScore(counter);
+            			
             			newScene();
             			winStage.close();
             			BreakoutScene.loadingStage.show();
@@ -459,7 +458,7 @@ public class BreakoutScene {
                 	vbox.getChildren().addAll(new Text("Game Over! Your score is " + counter), startOver);
 
             		Scene scene = new Scene(vbox);
-
+            		HighscoreTable.newBreakoutScore(counter);
             		winStage.setOnCloseRequest(e -> {
             			newScene();
             			BreakoutScene.loadingStage.show();
@@ -486,7 +485,7 @@ public class BreakoutScene {
             		startOver.setOnAction(e -> {
             			group.getChildren().clear();
             			newone.setText("Score: " + 0);
-            			HighscoreTable.newBreakoutScore(counter);
+            			
             			newScene();
             			winStage.close();
             			BreakoutScene.loadingStage.show();
@@ -496,7 +495,7 @@ public class BreakoutScene {
                 	vbox3.getChildren().addAll(new Text("You Won! Your score is " + counter), startOver);
 
             		Scene scene = new Scene(vbox3);
-
+            		HighscoreTable.newBreakoutScore(counter);
             		winStage.setOnCloseRequest(e -> {
             			newScene();
             			BreakoutScene.loadingStage.show();
